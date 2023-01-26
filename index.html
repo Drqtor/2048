@@ -1,1 +1,93 @@
-2048
+var array, matrix, movement, num1, num2, num3, num4;
+
+function rotate(times) {
+  var tempMatrix;
+
+  for (var time = 0, _pj_a = times; time < _pj_a; time += 1) {
+    tempMatrix = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+
+    for (var i = 0, _pj_b = 4; i < _pj_b; i += 1) {
+      for (var j = 0, _pj_c = 4; j < _pj_c; j += 1) {
+        tempMatrix[i][j] = matrix[j][3 - i];
+      }
+    }
+
+    for (var i = 0, _pj_b = 4; i < _pj_b; i += 1) {
+      for (var j = 0, _pj_c = 4; j < _pj_c; j += 1) {
+        matrix[i][j] = tempMatrix[i][j];
+      }
+    }
+  }
+}
+
+matrix = [];
+
+for (var i = 0, _pj_a = 4; i < _pj_a; i += 1) {
+  [num1, num2, num3, num4] = function () {
+    var _pj_b = [],
+        _pj_c = input().split();
+
+    for (var _pj_d = 0, _pj_e = _pj_c.length; _pj_d < _pj_e; _pj_d += 1) {
+      var x = _pj_c[_pj_d];
+
+      _pj_b.push(Number.parseInt(x));
+    }
+
+    return _pj_b;
+  }.call(this);
+
+  array = [];
+  array.append(num1);
+  array.append(num2);
+  array.append(num3);
+  array.append(num4);
+  matrix.append(array);
+}
+
+movement = Number.parseInt(input());
+rotate(movement);
+
+for (var x = 0, _pj_a = 4; x < _pj_a; x += 1) {
+  for (var i = 1, _pj_b = 4; i < _pj_b; i += 1) {
+    for (var j = 1, _pj_c = i + 1; j < _pj_c; j += 1) {
+      if (matrix[x][i - j] === 0) {
+        matrix[x][i - j] = matrix[x][i - j + 1];
+        matrix[x][i - j + 1] = 0;
+      }
+    }
+  }
+}
+
+for (var x = 0, _pj_a = 4; x < _pj_a; x += 1) {
+  for (var i = 0, _pj_b = 3; i < _pj_b; i += 1) {
+    if (matrix[x][i] === matrix[x][i + 1]) {
+      matrix[x][i] = matrix[x][i] * 2;
+      matrix[x][i + 1] = 0;
+    }
+  }
+}
+
+for (var x = 0, _pj_a = 4; x < _pj_a; x += 1) {
+  for (var i = 1, _pj_b = 4; i < _pj_b; i += 1) {
+    for (var j = 1, _pj_c = i + 1; j < _pj_c; j += 1) {
+      if (matrix[x][i - j] === 0) {
+        matrix[x][i - j] = matrix[x][i - j + 1];
+        matrix[x][i - j + 1] = 0;
+      }
+    }
+  }
+}
+
+rotate(4 - movement);
+
+for (var i, _pj_c = 0, _pj_a = matrix, _pj_b = _pj_a.length; _pj_c < _pj_b; _pj_c += 1) {
+  i = _pj_a[_pj_c];
+
+  for (var j, _pj_f = 0, _pj_d = i, _pj_e = _pj_d.length; _pj_f < _pj_e; _pj_f += 1) {
+    j = _pj_d[_pj_f];
+    console.log(j);
+  }
+
+  console.log();
+}
+
